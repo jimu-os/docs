@@ -2,7 +2,7 @@ import type {DefaultTheme} from "vitepress";
 
 export default function getNavs() {
     return [
-        {text: 'Home', link: '/'},
+        {text: 'Home', link: '/en'},
         {text: 'Guide', link: '/en/guide/intro'},
         {
             text: 'v0.4.1',

@@ -2,7 +2,7 @@ import type {DefaultTheme} from "vitepress";
 
 export default function getNavs() {
     return [
-        {text: '主页', link: '/'},
+        {text: '主页', link: '/zh'},
         {text: '指南', link: '/zh/guide/intro'},
         {
             text: 'v0.4.1',
