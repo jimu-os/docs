@@ -11,10 +11,10 @@ hero:
   actions:
     - theme: brand
       text: What is GoBatis?
-      link: /zh/guide/intro
+      link: /en/guide/intro
     - theme: alt
       text: Quick Start
-      link: /zh/guide/start
+      link: /en/guide/start
     - theme: alt
       text: GitHub
       link: https://github.com/jimu-os/gobatis
