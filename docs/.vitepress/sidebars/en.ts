@@ -1,10 +1,10 @@
 export const sidebar = [
     {
-        text: '指南',
+        text: 'Guide',
         items: [
-            {text: '简介', link: '/zh/guide/intro'},
-            {text: '快速上手', link: '/zh/guide/start'},
-            {text: '插件', link: '/zh/guide/plugin'},
+            {text: 'Intro', link: '/en/guide/intro'},
+            {text: 'Quick start', link: '/en/guide/start'},
+            {text: 'Plugin', link: '/en/guide/plugin'},
         ]
     },
 ];

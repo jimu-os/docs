@@ -7,28 +7,6 @@ export const themeConfig: DefaultTheme.Config = {
     socialLinks: [
         {icon: 'github', link: 'https://github.com/jimu-os/gobatis'}
     ],
-    // nav: [
-    //     {text: '主页', link: '/zh/guide/intro'},
-    //     {text: '指南', link: '/zh/guide/intro'},
-    //     {
-    //         text: 'v0.4.1',
-    //         items: [
-    //             {text: '更新日志', link: '...'},
-    //         ]
-    //     },
-    // ],
-    // returnToTopLabel: '返回顶部',
-    // // 文档页脚文本配置
-    // docFooter: {
-    //     prev: '上一页',
-    //     next: '下一页'
-    // },
-    //
-    // sidebar,
-    // outline: {
-    //     level: "deep", // 右侧大纲标题层级
-    //     label: "目录", // 右侧大纲标题文本配置
-    // },
     // 搜索配置（二选一）
     search: {
         // 本地离线搜索
