@@ -2,7 +2,7 @@ import type {DefaultTheme} from "vitepress";
 import {sidebar} from "./sidebars/zh";
 
 export const themeConfig: DefaultTheme.Config = {
-    i18nRouting: true,
+    i18nRouting: false,
     logo: "/public/logo_1.svg",
     nav: [
         {text: '主页', link: '/zh/guide/intro'},
