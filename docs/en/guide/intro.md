@@ -1,11 +1,19 @@
 ---
 layout: doc
 ---
+
 # GoBatis
+
 [![Go Report Card](https://goreportcard.com/badge/gitee.com/aurora-engine/sgo)](https://goreportcard.com/report/gitee.com/aurora-engine/sgo)<br>
-## version
-```shell
+`GoBatis is an implementation of the MyBatis go language, which provides context data parsing and filling for mappers. It does not guarantee syntax checking for SQL statements and supports custom data mapping
+
+## SDK version
+
+Minimum version requirement for go
+
+```text
 go1.21
 ```
-`GoBatis` 是 `MyBatis` go语言实现，`GoBatis`提供对 mapper 的上下文数据解析填充，并不保证对 sql 语句的语法检查,支持自定义数据映射.
+
+
 

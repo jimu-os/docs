@@ -3,11 +3,11 @@ import type {DefaultTheme} from "vitepress";
 export default function getNavs() {
     return [
         {text: 'Home', link: '/'},
-        {text: 'Guide', link: '/zh/guide/intro'},
+        {text: 'Guide', link: '/en/guide/intro'},
         {
             text: 'v0.4.1',
             items: [
-                {text: 'Update', link: '...'},
+                {text: 'Update', link: '/en/update/update.md'},
             ]
         },
     ] as DefaultTheme.NavItem[]

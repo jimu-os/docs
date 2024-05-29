@@ -7,7 +7,7 @@ export default function getNavs() {
         {
             text: 'v0.4.1',
             items: [
-                {text: '更新日志', link: '...'},
+                {text: '更新日志', link: '/zh/update/update.md'},
             ]
         },
     ] as DefaultTheme.NavItem[]

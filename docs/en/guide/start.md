@@ -2,11 +2,11 @@
 layout: doc
 ---
 
-# 快速入门
+# quick get start
 
-## 创建 table
+## Create table
 
-创建一张 `student` 表，用于测试
+Create a `student` table for testing purposes
 
 ```sql
 create table student
@@ -18,12 +18,12 @@ create table student
 );
 ```
 
-## 创建 映射模型
+## Create a mapping model
 
-根据数据库表，或者sql查询结果集 创建一个结构体用于接收查询数据，`column` 属性的值对应者 sql 表定义的列名
+Create a structure based on database tables or SQL query result sets to receive query data, where the value of the `column` attribute corresponds to the column name defined in the SQL table
 
 ```go
-// Student 用户模型
+// Student 
 type Student struct {
 	Id         int    `column:"id"json:"id,omitempty"`
 	Name       string `column:"name"json:"name,omitempty"`
@@ -32,16 +32,16 @@ type Student struct {
 }
 ```
 
-## 创建 mapper结构体
+## Create mapper structure
 
 ```go
 type StudentMapper struct {
 }
 ```
 
-## 创建 mapper 文件
+## Create a mapper file
 
-更具 mapper 结构体的名称创建一个 mapper xml文件
+Create a mapper XML file with a more mapper structured name
 
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -50,7 +50,7 @@ type StudentMapper struct {
 </mapper>
 ```
 
-## 项目目录结构
+## Project directory structure
 
 ```txt
 |--root
@@ -58,12 +58,13 @@ type StudentMapper struct {
 |   |--student.go
 |--mapper_test.go
 |--StudentMapper.go
+|--TagMapp.go
 |--text.xml
 ```
 
-## 初始化 gobatis
+## Initialize gobatis
 
-`mapper_test.go` 文件中初始化 `gobatis` 实例
+Initialize an instance of `gobatis` in `the mapper_test. go` file
 
 ```go
 import (
@@ -92,11 +93,11 @@ func init() {
 }
 ```
 
-## 数据插入数据
+## Data insertion
 
-### 添加 mapper 方法
+### Add mapper method
 
-此时你的 `mapper` 应该是下面的样子
+At this point, your `mapper` should look like the following
 
 ```go
 type StudentMapper struct {
@@ -104,10 +105,10 @@ type StudentMapper struct {
 }
 ```
 
-#### 添加 xml insert 标签
+#### Add XML insert tag
 
-根据定义的字段名称,对应在 mapper 文件中添加一个 `id="AddOne"` insert 标签，
-标签内书写需要执行的`sql`语句，`sql`语句中的变量通过 `{}` 的形式去加载解析
+Add an `id="AddOne"` insert tag to the mapper file based on the defined field name,
+Write the `SQL` statement that needs to be executed within the tag, and the variables in the `SQL` statement are loaded and parsed in the form of `{}`
 
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -119,9 +120,9 @@ type StudentMapper struct {
 </mapper>
 ```
 
-#### 调用执行插入数据
+#### Call to execute insert data
 
-下面通过测试对刚刚定义的插入方法进行执行，所有的前置步骤都在上面的初始化中准备好了，直接调用 `AddOne` 字段即可实现数据插入
+Next, execute the newly defined insertion method through testing, and all the pre steps are prepared in the initialization above. Simply call the `AddOne` field to achieve data insertion
 
 ```go
 func TestInsert(t *testing.T) {
@@ -138,10 +139,10 @@ func TestInsert(t *testing.T) {
 }
 ```
 
-### 执行行数 和 自增主键
+### Execute row count and auto increment primary key
 
-定义mapper字段 `InsertId`,它有3个返回值，第一个返回值是执行sql返回的影响行数，第二个返回值是返回自增长逐渐值，
-默认第一个参数是返回影响行数。
+Define the mapper field `InsertId`, which has three return values. The first return value is the number of rows affected by the execution of SQL, and the second return value is the incremental value of self growth,
+The default first parameter is to return the number of affected rows.
 
 ```go
 type StudentMapper struct {
@@ -150,7 +151,7 @@ type StudentMapper struct {
 }
 ```
 
-#### 定义xml
+#### Define XML
 
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -166,7 +167,7 @@ type StudentMapper struct {
 </mapper>
 ```
 
-#### 执行测试
+#### Perform testing
 
 ```go
 func TestInsertId(t *testing.T) {
@@ -185,9 +186,9 @@ func TestInsertId(t *testing.T) {
 }
 ```
 
-### 实现批量插入
+### Implement batch insertion
 
-添加新的方法，此时你的 `mapper` 应该是下面的样子
+Add a new method, and at this point your `mapper` should look like the following
 
 ```go
 type StudentMapper struct {
@@ -197,10 +198,10 @@ type StudentMapper struct {
 }
 ```
 
-#### 定义新的 mapper insert
+#### Define a new mapper insert
 
-此时你的的 mapper 应该是如下，添加了一个新的 insert 标签 `id="Adds"`，其中 使用`<for></for>` 标签对传递的数组数据进行了解析
-`slice="{arr}"` 属性指定了属性名称为 arr 的数据，`item="stu"`表示的是迭代过程中的对象参数，更具数据元素来定，如果是基础数据，那么代表数据本身
+At this point, your mapper should be as follows, with a new insert tag `id="Add"` added, where the `<for></for>` tag is used to parse the passed array data
+`Slice="{arr}"` The attribute specifies the data with the attribute name arr, while `item="stu"`represents the object parameters during the iteration process, which are determined by data elements. If it is basic data, it represents the data itself
 
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
@@ -222,11 +223,14 @@ type StudentMapper struct {
 </mapper>
 ```
 
-#### 调用执行
+#### Call Execution
 
 ```go
-func TestSliceInsert(t *testing.T) {
-	var arr []model.Student
+// TestAdds
+// Add batch data
+func TestAdds(t *testing.T) {
+	var err error
+	var arr []any
 	for i := 0; i < 10; i++ {
 		s := model.Student{
 			Name:       fmt.Sprintf("test_%d", i),
@@ -247,12 +251,12 @@ func TestSliceInsert(t *testing.T) {
 }
 ```
 
-## 数据查询
+## Data Query
 
-#### 定义查询
+#### Define Query
 
-定义了mapper字段 `QueryAll` 查询全部采用对应的切片模型进行接收即可，查询多条数据结果集的时候任然可以使用单个模型接收，
-只是单个模型的数据仅仅取到结果集的第一条数据。
+The mapper field `QueryAll` has been defined, and all queries can be received using the corresponding slicing model. When querying multiple datasets, a single model can still be used to receive them,
+Only the data of a single model is taken from the first data in the result set.
 
 ```go
 type StudentMapper struct {
@@ -288,7 +292,7 @@ type StudentMapper struct {
 </mapper>
 ```
 
-#### 执行
+#### implement
 
 ```go
 func TestQueryAll(t *testing.T) {
@@ -301,11 +305,11 @@ func TestQueryAll(t *testing.T) {
 }
 ```
 
-## 分页查询
+## Pagination query
 
-添加分页 mapper 字段 `QueryPage`，作为测试我们不进行参数传递，它返回3个参数，第一个参数是分页数据，第二个参数，是`sql`
-条件所统计的总数，
-查询mapper不返回 `int64` 的参数就不会自动统计数量
+Add the paging mapper field `QueryPage`. As a test, we do not pass any parameters. It returns three parameters. The first parameter is paging data, and the second parameter is `SQL`
+The total number of conditions counted,
+If the mapper does not return a parameter of `int64`, the quantity will not be automatically counted
 
 ```go
 type StudentMapper struct {
@@ -346,7 +350,7 @@ type StudentMapper struct {
 </mapper>
 ```
 
-#### 执行
+#### implement
 
 ```go
 func TestQueryPage(t *testing.T) {
@@ -360,9 +364,9 @@ func TestQueryPage(t *testing.T) {
 }
 ```
 
-## 事务支持
+## Transaction support
 
-定义一个数据修改操作，通过外部传递一个事务 `tx` 由它来完成数据库操作后的提交或是回滚，我们定义一个 `Update` 第二个参数传递事务
+Define a data modification operation and pass a transaction `tx` externally to complete the commit or rollback of the database operation. We define an `Update` parameter and pass the transaction as the second parameter
 
 ```go
 type StudentMapper struct {
@@ -373,26 +377,35 @@ type StudentMapper struct {
 	QueryAll  func() ([]model.Student, error)
 	QueryPage func() ([]model.Student, int64, error)
 
-	Update func(student model.Student, tx *sql.Tx) (int64, error)
+	UpdateTx func(student model.Student, tx *sql.Tx) (int64, error)
+	DeleteTx func(student model.Student, tx *sql.Tx) (int64, error)
 }
 ```
 
-编写sql语句，修改年龄大于5的数据姓名修改为AAA
+Write SQL statements to modify the names of data aged over 5 to AAA
 
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <mapper namespace="StudentMapper">
     <!--  略 ..  -->
-    <update id="Update">
+    <update id="UpdateTx">
         update student set name={Name} where age>{Age}
     </update>
+    <delete id="DeleteTx">
+        delete
+        from student
+        where id = {id}
+    </delete>
 </mapper>
 ```
 
-#### 运行测试
+#### implement
 
 ```go
-func TestUpdate(t *testing.T) {
+// TestUpdateTx
+// Custom transaction update data
+func TestUpdateTx(t *testing.T) {
+	var err error
 	var begin *sql.Tx
 	var count int64
 	begin, err = open.Begin()
@@ -401,10 +414,11 @@ func TestUpdate(t *testing.T) {
 		return
 	}
 	u := model.Student{
-		Name: "AAA",
+		Name: "awen",
 		Age:  5,
 	}
-	count, err = studentMapper.Update(u, begin)
+	// 年龄大于5的name数据更新为 awen
+	count, err = studentMapper.UpdateTx(u, begin)
 	if err != nil {
 		t.Error(err.Error())
 		return
@@ -414,14 +428,39 @@ func TestUpdate(t *testing.T) {
 }
 ```
 
-## if 标签的使用
+```go
+// TestDeleteTx
+// Custom transaction deletion data
+func TestDeleteTx(t *testing.T) {
+	var err error
+	var begin *sql.Tx
+	var count int64
+	begin, err = open.Begin()
+	if err != nil {
+		t.Error(err.Error())
+		return
+	}
+	param := map[string]any{
+		"id": 1,
+	}
+	count, err = studentMapper.DeleteTx(param, begin)
+	if err != nil {
+		t.Error(err.Error())
+		return
+	}
+	begin.Commit()
+	t.Log(count)
+}
+```
 
-编写 xml,`QueryIf` 查询中使用了`where`标签，在`where`标签中，使用if来对上下文参数进行判断，如果存在 if标签将被解析到语句中
+## The use of if tags
+
+Write XML using the `where` tag in the `QueryIf` query. In the 'where' tag, use if to determine the context parameters. If there is an if tag, it will be parsed into the statement
 
 ```xml
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <mapper namespace="StudentMapper">
-    <!--  略 ..  -->
+    <!--   ..  -->
     <select id="QueryIf">
         select * from student
         <where>
@@ -433,7 +472,7 @@ func TestUpdate(t *testing.T) {
 </mapper>
 ```
 
-定义mapper字段
+Define mapper fields
 
 ```go
 type StudentMapper struct {
@@ -444,13 +483,14 @@ type StudentMapper struct {
 	QueryAll  func() ([]model.Student, error)
 	QueryPage func() ([]model.Student, int64, error)
 
-	Update func(student model.Student, tx *sql.Tx) (int64, error)
+	UpdateTx func(student model.Student, tx *sql.Tx) (int64, error)
+	DeleteTx func(student model.Student, tx *sql.Tx) (int64, error)
 
 	QueryIf func(any) (model.Student, error)
 }
 ```
 
-运行测试
+Running tests
 
 ```go
 func TestIf(t *testing.T) {
